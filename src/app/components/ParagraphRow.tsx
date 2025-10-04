@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import { Virtualizer } from "@tanstack/react-virtual";
+import { Virtualizer, VirtualItem } from "@tanstack/react-virtual";
 
 interface ParagraphRowProps {
   virtualizer: Virtualizer<HTMLDivElement, Element>;
-  virtualItem: any;
+  virtualItem: VirtualItem;
   paragraphText: string;
 }
 

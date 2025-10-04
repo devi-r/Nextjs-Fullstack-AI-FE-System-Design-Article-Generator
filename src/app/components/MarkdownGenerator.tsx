@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import ReactMarkdown from "react-markdown";
 import { Clipboard, Check } from "lucide-react";
 import { Header } from "./Header";
 import { SystemInputForm } from "./SystemInputForm";
@@ -19,7 +18,6 @@ export default function MarkdownGenerator(): React.JSX.Element {
     promptCount,
     canGenerate,
     displayedContent,
-    isStreamingComplete,
     currentMessageIndex,
     thinkingMessages,
     articleParagraphs,

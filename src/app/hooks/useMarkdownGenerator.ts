@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { MarkdownGeneratorState, ApiResponse } from "../types";
+import { MarkdownGeneratorState } from "../types";
 import { MAX_PROMPTS, PROMPT_COUNT_KEY } from "../constants";
 
 export const useMarkdownGenerator = () => {
   const [state, setState] = useState<MarkdownGeneratorState>({
     systemName: "",
-    markdownContent: "",
     isLoading: false,
     error: "",
     copied: false,
@@ -67,7 +66,7 @@ export const useMarkdownGenerator = () => {
       // Reset message index when content starts displaying
       setCurrentMessageIndex(0);
     }
-  }, [state.isLoading, displayedContent]);
+  }, [state.isLoading, displayedContent, thinkingMessages.length]);
 
   // TanStack Virtual hook setup
   const rowVirtualizer = useVirtualizer({
@@ -91,10 +90,6 @@ export const useMarkdownGenerator = () => {
 
   const setSystemName = (name: string) => {
     setState((prev) => ({ ...prev, systemName: name }));
-  };
-
-  const setMarkdownContent = (markdownContent: string) => {
-    setState((prev) => ({ ...prev, markdownContent }));
   };
 
   const setIsLoading = (loading: boolean) => {

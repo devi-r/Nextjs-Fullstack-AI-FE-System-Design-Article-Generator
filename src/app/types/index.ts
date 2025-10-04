@@ -1,6 +1,5 @@
 export interface MarkdownGeneratorState {
   systemName: string;
-  markdownContent: string;
   isLoading: boolean;
   error: string;
   copied: boolean;
@@ -8,7 +7,6 @@ export interface MarkdownGeneratorState {
 
 export interface MarkdownGeneratorActions {
   setSystemName: (name: string) => void;
-  setMarkdownContent: (markdownContent: string) => void;
   setIsLoading: (loading: boolean) => void;
   setError: (error: string) => void;
   setCopied: (copied: boolean) => void;

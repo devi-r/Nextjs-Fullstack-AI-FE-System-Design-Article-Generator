@@ -25,7 +25,7 @@ export async function POST(request) {
     async start(controller) {
       try {
         const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
+        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
         const finalPrompt = masterPrompt.replace("{{SYSTEM_NAME}}", systemName);
 
         const streamingResult = await model.generateContentStream(finalPrompt);
