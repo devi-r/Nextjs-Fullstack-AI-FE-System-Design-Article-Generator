@@ -2,7 +2,7 @@
 
 A full-stack Next.js application demonstrating a secure, streaming-first architecture for interacting with generative AI.
 
-**Live Demo:** [Link to deployed Vercel URL]
+**Live Demo:** [https://nextjs-fullstack-ai-fe-system-desig.vercel.app/](https://nextjs-fullstack-ai-fe-system-desig.vercel.app/)
 
 ## Key Features
 

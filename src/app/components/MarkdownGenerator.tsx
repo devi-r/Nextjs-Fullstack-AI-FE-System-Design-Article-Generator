@@ -1,22 +1,30 @@
 "use client";
 
 import React from "react";
+import ReactMarkdown from "react-markdown";
+import { Clipboard, Check } from "lucide-react";
 import { Header } from "./Header";
 import { SystemInputForm } from "./SystemInputForm";
 import { MarkdownSkeleton } from "./MarkdownSkeleton";
 import { ErrorDisplay } from "./ErrorDisplay";
-import { GeneratedMarkdown } from "./GeneratedMarkdown";
+import { ParagraphRow } from "./ParagraphRow";
 import { useMarkdownGenerator } from "../hooks/useMarkdownGenerator";
 
 export default function MarkdownGenerator(): React.JSX.Element {
   const {
     systemName,
-    markdownContent,
     isLoading,
     error,
     copied,
     promptCount,
     canGenerate,
+    displayedContent,
+    isStreamingComplete,
+    currentMessageIndex,
+    thinkingMessages,
+    articleParagraphs,
+    parentRef,
+    rowVirtualizer,
     setSystemName,
     generateMarkdown,
     handleCopy,
@@ -42,17 +50,68 @@ export default function MarkdownGenerator(): React.JSX.Element {
         />
 
         {/* Output Area */}
-        <div className="w-full mt-8">
-          {isLoading && <MarkdownSkeleton />}
+        <div className="w-full mt-8 text-left min-h-[500px]">
+          {/* --- Loading State --- */}
+          {isLoading && !displayedContent && (
+            <MarkdownSkeleton
+              currentMessageIndex={currentMessageIndex}
+              thinkingMessages={thinkingMessages}
+            />
+          )}
 
           {error && !isLoading && <ErrorDisplay error={error} />}
 
-          {markdownContent && !isLoading && (
-            <GeneratedMarkdown
-              markdown={markdownContent}
-              copied={copied}
-              onCopy={handleCopy}
-            />
+          {/* --- Virtualized Display State --- */}
+          {displayedContent && articleParagraphs.length > 0 && (
+            <div className="bg-gray-800/60 border border-gray-700 rounded-xl shadow-2xl">
+              <div className="flex justify-between items-center p-4 border-b border-gray-700">
+                <h3 className="text-lg font-semibold text-gray-200">
+                  Generated Document
+                </h3>
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-gray-700 hover:bg-gray-600 text-sm transition-colors disabled:opacity-50"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="h-4 w-4 text-green-400" />
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <Clipboard className="h-4 w-4" />
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+
+              {/* VIRTUALIZATION CONTAINER */}
+              <div
+                ref={parentRef}
+                className="h-[60vh] overflow-y-auto p-6"
+                style={{ contain: "strict" }}
+              >
+                {/* Inner container for total scroll height */}
+                <div
+                  style={{
+                    height: `${rowVirtualizer.getTotalSize()}px`,
+                    width: "100%",
+                    position: "relative",
+                  }}
+                >
+                  {/* STEP 3: Render the list using our new, self-measuring ParagraphRow component. */}
+                  {rowVirtualizer.getVirtualItems().map((virtualItem) => (
+                    <ParagraphRow
+                      key={virtualItem.key}
+                      virtualizer={rowVirtualizer}
+                      virtualItem={virtualItem}
+                      paragraphText={articleParagraphs[virtualItem.index]}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
           )}
         </div>
       </div>

@@ -1,16 +1,18 @@
 import React from "react";
 
-export const MarkdownSkeleton: React.FC = () => (
-  <div className="mt-8 w-full animate-pulse">
-    <div className="h-8 bg-gray-700 rounded-md w-3/4 mb-6"></div>
-    <div className="space-y-4">
-      <div className="h-4 bg-gray-700 rounded-md w-full"></div>
-      <div className="h-4 bg-gray-700 rounded-md w-5/6"></div>
-      <div className="h-4 bg-gray-700 rounded-md w-full"></div>
-      <div className="h-6 bg-gray-700 rounded-md w-1/2 my-6"></div>
-      <div className="h-4 bg-gray-700 rounded-md w-full"></div>
-      <div className="h-4 bg-gray-700 rounded-md w-full"></div>
-      <div className="h-4 bg-gray-700 rounded-md w-3/4"></div>
-    </div>
+interface MarkdownSkeletonProps {
+  currentMessageIndex?: number;
+  thinkingMessages?: string[];
+}
+
+export const MarkdownSkeleton: React.FC<MarkdownSkeletonProps> = ({
+  currentMessageIndex = 0,
+  thinkingMessages = ["Loading..."],
+}) => (
+  <div className="flex flex-col items-center justify-center h-full bg-gray-800/60 border border-gray-700 rounded-xl p-6">
+    <div className="loader ease-linear rounded-full border-4 border-t-4 border-gray-600 h-12 w-12 mb-4 animate-spin border-t-purple-500"></div>
+    <p className="text-gray-300 text-lg transition-opacity duration-500">
+      {thinkingMessages[currentMessageIndex]}
+    </p>
   </div>
 );

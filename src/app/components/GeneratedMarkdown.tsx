@@ -6,12 +6,14 @@ interface GeneratedMarkdownProps {
   markdown: string;
   copied: boolean;
   onCopy: () => void;
+  isStreamingComplete?: boolean;
 }
 
 export const GeneratedMarkdown: React.FC<GeneratedMarkdownProps> = ({
   markdown,
   copied,
   onCopy,
+  isStreamingComplete = true,
 }) => {
   const articleRef = useRef<HTMLDivElement>(null);
 
@@ -42,6 +44,9 @@ export const GeneratedMarkdown: React.FC<GeneratedMarkdownProps> = ({
       </div>
       <div ref={articleRef}>
         <MarkdownRenderer markdown={markdown} />
+        {!isStreamingComplete && (
+          <span className="inline-block w-2 h-5 bg-gray-400 animate-pulse ml-1"></span>
+        )}
       </div>
     </div>
   );

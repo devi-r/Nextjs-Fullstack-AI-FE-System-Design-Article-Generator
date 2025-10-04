@@ -9,6 +9,7 @@ export { ErrorDisplay } from "./ErrorDisplay";
 export { GeneratedMarkdown } from "./GeneratedMarkdown";
 export { CopyButton } from "./CopyButton";
 export { MarkdownRenderer } from "./MarkdownRenderer";
+export { ParagraphRow } from "./ParagraphRow";
 
 // Icons
 export * from "./icons";
