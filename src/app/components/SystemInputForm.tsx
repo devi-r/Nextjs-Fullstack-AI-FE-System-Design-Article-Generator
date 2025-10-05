@@ -54,7 +54,6 @@ export const SystemInputForm: React.FC<SystemInputFormProps> = ({
             <>
               <LoadingSpinner />
               <span className="hidden sm:inline">Generating...</span>
-              <span className="sm:hidden">Gen</span>
             </>
           ) : (
             <>
