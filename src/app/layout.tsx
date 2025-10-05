@@ -13,16 +13,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI FE System Designer",
-  description: "AI FE System Designer",
+  title: "Devi's AI FE System Designer",
+  description: "Devi's AI FE System Designer",
   icons: {
     icon: "/icon.png", // /public path
     apple: "/icon.png", // /public path
     shortcut: "/icon.png", // /public path
   },
   openGraph: {
-    title: "AI FE System Designer",
-    description: "AI FE System Designer",
+    title: "Devi's AI FE System Designer",
+    description: "Devi's AI FE System Designer",
     images: [
       {
         url: "https://nextjs-fullstack-ai-fe-system-desig.vercel.app/icon.png", // Must be an absolute URL

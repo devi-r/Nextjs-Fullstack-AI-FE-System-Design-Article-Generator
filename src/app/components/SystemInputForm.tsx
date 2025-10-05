@@ -9,6 +9,7 @@ interface SystemInputFormProps {
   promptCount: number;
   onSystemNameChange: (name: string) => void;
   onSubmit: (e: React.FormEvent) => void;
+  onAutoSubmit: (systemName: string) => void;
 }
 
 export const SystemInputForm: React.FC<SystemInputFormProps> = ({
@@ -18,7 +19,20 @@ export const SystemInputForm: React.FC<SystemInputFormProps> = ({
   promptCount,
   onSystemNameChange,
   onSubmit,
+  onAutoSubmit,
 }) => {
+  const suggestionChips = [
+    { label: "Try Netflix", value: "Netflix" },
+    { label: "Try Canva", value: "Canva" },
+    { label: "Try Uber", value: "Uber" },
+  ];
+
+  const handleChipClick = (value: string) => {
+    if (!isLoading && canGenerate) {
+      onSystemNameChange(value);
+      onAutoSubmit(value);
+    }
+  };
   return (
     <form onSubmit={onSubmit} className="w-full mt-10">
       <div className="relative">
@@ -34,7 +48,7 @@ export const SystemInputForm: React.FC<SystemInputFormProps> = ({
         <button
           type="submit"
           disabled={isLoading || !canGenerate}
-          className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg text-xs sm:text-sm"
+          className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-2.5 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:opacity-90 transition-opacity duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shadow-lg text-xs sm:text-sm"
         >
           {isLoading ? (
             <>
@@ -52,6 +66,21 @@ export const SystemInputForm: React.FC<SystemInputFormProps> = ({
             </>
           )}
         </button>
+      </div>
+
+      {/* Suggestion Chips */}
+      <div className="flex flex-wrap gap-2 mt-4 justify-center">
+        {suggestionChips.map((chip) => (
+          <button
+            key={chip.value}
+            type="button"
+            onClick={() => handleChipClick(chip.value)}
+            disabled={isLoading || !canGenerate}
+            className="px-3 py-1.5 text-sm bg-gray-800/60 border border-gray-600 rounded-full hover:bg-gray-700/60 hover:border-gray-500 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-gray-300 hover:text-gray-100"
+          >
+            {chip.label}
+          </button>
+        ))}
       </div>
     </form>
   );

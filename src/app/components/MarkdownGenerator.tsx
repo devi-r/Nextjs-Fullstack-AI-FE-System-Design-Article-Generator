@@ -33,6 +33,10 @@ export default function MarkdownGenerator(): React.JSX.Element {
     await generateMarkdown(systemName);
   };
 
+  const handleAutoSubmit = async (systemName: string) => {
+    await generateMarkdown(systemName);
+  };
+
   return (
     <main className="flex flex-col items-center min-h-screen w-full bg-gray-900 text-gray-100 p-4 sm:p-6 md:p-8 font-sans">
       <div className="w-full max-w-3xl mx-auto flex flex-col items-center text-center">
@@ -45,6 +49,7 @@ export default function MarkdownGenerator(): React.JSX.Element {
           promptCount={promptCount}
           onSystemNameChange={setSystemName}
           onSubmit={handleSubmit}
+          onAutoSubmit={handleAutoSubmit}
         />
 
         {/* Output Area */}
