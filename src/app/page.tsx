@@ -1,5 +1,5 @@
-import MarkdownGenerator from "./components/MarkdownGenerator";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <MarkdownGenerator />;
+  redirect("/ai-fe-system-designer");
 }
